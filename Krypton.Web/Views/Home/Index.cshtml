@@ -1,0 +1,223 @@
+@{
+    ViewData["Title"] = "Criptografia e descriptografia de arquivos";
+}
+
+<!-- Screen 1: Hero com App-Frame ao Vivo (Sem Eyebrow Pills ou Caixas de Métricas Clichê) -->
+<section class="hero-stage p-4 p-md-5 mb-5" data-enter>
+    <div class="row align-items-center g-4 g-xl-5">
+        <div class="col-lg-6">
+            <h1 class="hero-headline">
+                Criptografia de arquivos em AES-256-GCM direto no navegador
+            </h1>
+
+            <p class="hero-lead">
+                Proteja documentos individuais ou pacotes inteiros com senha em pacotes autenticados <code>.krypt</code>. O processamento ocorre em blocos de 64 KB na memória RAM e nenhum byte permanece armazenado no servidor.
+            </p>
+
+            <div class="d-flex flex-wrap gap-3">
+                <a asp-controller="Encryption" asp-action="Index" class="btn-krypton-primary">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.2" aria-hidden="true">
+                        <rect x="4" y="11" width="16" height="10" rx="2" />
+                        <path d="M8 11V7a4 4 0 0 1 8 0v4" />
+                    </svg>
+                    <span>Criptografar arquivos</span>
+                </a>
+
+                <a asp-controller="Decryption" asp-action="Index" class="btn-krypton-secondary">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.2" aria-hidden="true">
+                        <rect x="4" y="11" width="16" height="10" rx="2" />
+                        <path d="M8 11V7a4 4 0 0 1 7.4-2" />
+                    </svg>
+                    <span>Descriptografar arquivo</span>
+                </a>
+            </div>
+
+            <div class="hero-fact-strip">
+                <div>Cifra: <strong>AES-256-GCM</strong></div>
+                <div>Derivação: <strong>PBKDF2-SHA512 (600.000 iter)</strong></div>
+                <div>Cabeçalho AAD: <strong>62 bytes</strong></div>
+            </div>
+        </div>
+
+        <!-- App-Frame Real Mostrando a Estrutura do Arquivo .krypt -->
+        <div class="col-lg-6">
+            <div class="krypton-app-frame" role="region" aria-label="Estrutura em tempo real do formato binário .krypt">
+                <div class="app-frame-bar">
+                    <div class="d-flex align-items-center gap-2">
+                        <div class="app-frame-dots" aria-hidden="true">
+                            <span></span><span></span><span></span>
+                        </div>
+                        <span class="font-monospace text-secondary ms-1">contrato-social.pdf.krypt</span>
+                    </div>
+                    <span class="badge bg-dark border border-secondary border-opacity-50 font-monospace text-light">KRYPT1 v1</span>
+                </div>
+
+                <div class="app-frame-body">
+                    <div class="packet-row">
+                        <span class="packet-offset">0x00</span>
+                        <span class="packet-field">Assinatura + Versão + Flags</span>
+                        <span class="packet-val">KRYPT1 • 8 bytes</span>
+                    </div>
+                    <div class="packet-row">
+                        <span class="packet-offset">0x08</span>
+                        <span class="packet-field">PBKDF2-HMAC-SHA512</span>
+                        <span class="packet-val">600.000 iter</span>
+                    </div>
+                    <div class="packet-row">
+                        <span class="packet-offset">0x0C</span>
+                        <span class="packet-field">Salt CSPRNG exclusivo</span>
+                        <span class="packet-val">32 bytes (256-bit)</span>
+                    </div>
+                    <div class="packet-row">
+                        <span class="packet-offset">0x2C</span>
+                        <span class="packet-field">Base Nonce + Tamanho de bloco</span>
+                        <span class="packet-val">12 B • 65.536 B</span>
+                    </div>
+                    <div class="packet-row">
+                        <span class="packet-offset">0x3E</span>
+                        <span class="packet-field">Metadados originais autenticados</span>
+                        <span class="packet-val packet-val-amber">AES-GCM + Tag 16 B</span>
+                    </div>
+                    <div class="packet-row">
+                        <span class="packet-offset">0x3E+N</span>
+                        <span class="packet-field">Fluxo de dados selado em blocos</span>
+                        <span class="packet-val">64 KB/bloco + Tag 16 B</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Screen 2: Portais Operacionais (Criptografar & Descriptografar) com Diagramas de Barramento -->
+<section class="mb-5" aria-label="Operações principais">
+    <div class="row g-4">
+        <!-- Portal 1: Criptografar -->
+        <div class="col-lg-6">
+            <div class="portal-card portal-card-encrypt h-100 p-4 p-xl-5 d-flex flex-column">
+                <div class="d-flex justify-content-between align-items-center mb-3">
+                    <div class="d-inline-flex align-items-center gap-2 font-monospace small text-light">
+                        <span class="led-indicator" aria-hidden="true"></span>
+                        <span>Selagem de arquivos</span>
+                    </div>
+                    <span class="font-monospace small text-secondary">Até 50 arquivos / 500 MB</span>
+                </div>
+
+                <h2 class="h3 fw-bold mb-2">Criptografar arquivos</h2>
+                <p class="text-secondary mb-4">
+                    Converta qualquer documento ou lote de arquivos em um cofre <code>.krypt</code> protegido por senha, com opções de compactação GZip e ocultação do nome externo.
+                </p>
+
+                <!-- Diagrama de Fluxo com Pulso Contínuo (design-taste-frontend Rule 7) -->
+                <div class="pipeline-diagram-box mb-4 mt-auto">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 460 66" width="100%" height="66" aria-hidden="true">
+                        <line x1="88" y1="33" x2="365" y2="33" stroke="#262b36" stroke-width="2" />
+                        <line x1="88" y1="33" x2="365" y2="33" stroke="#10b981" stroke-width="2.5" class="pulse-lane-line" />
+
+                        <rect x="6" y="13" width="88" height="40" rx="6" fill="#14181f" stroke="#2e3440" />
+                        <text x="50" y="37" fill="#e5e7eb" font-family="monospace" font-size="11" text-anchor="middle">Arquivo(s)</text>
+
+                        <rect x="148" y="10" width="164" height="46" rx="6" fill="#0d1915" stroke="#10b981" stroke-opacity="0.55" />
+                        <text x="230" y="30" fill="#10b981" font-family="monospace" font-weight="bold" font-size="11" text-anchor="middle">AES-256-GCM</text>
+                        <text x="230" y="45" fill="#9ca3af" font-family="monospace" font-size="9.5" text-anchor="middle">PBKDF2 600k + Salt 32B</text>
+
+                        <rect x="364" y="13" width="90" height="40" rx="6" fill="#14181f" stroke="#10b981" />
+                        <text x="409" y="37" fill="#10b981" font-family="monospace" font-weight="bold" font-size="11" text-anchor="middle">.krypt</text>
+                    </svg>
+                </div>
+
+                <div>
+                    <a asp-controller="Encryption" asp-action="Index" class="btn-krypton-primary w-100 stretched-link">
+                        <span>Abrir console de criptografia</span>
+                    </a>
+                </div>
+            </div>
+        </div>
+
+        <!-- Portal 2: Descriptografar -->
+        <div class="col-lg-6">
+            <div class="portal-card portal-card-decrypt h-100 p-4 p-xl-5 d-flex flex-column">
+                <div class="d-flex justify-content-between align-items-center mb-3">
+                    <div class="d-inline-flex align-items-center gap-2 font-monospace small text-light">
+                        <span class="led-indicator led-indicator-amber" aria-hidden="true"></span>
+                        <span>Verificação e abertura</span>
+                    </div>
+                    <span class="font-monospace small text-secondary">Formato KRYPT1 v1</span>
+                </div>
+
+                <h2 class="h3 fw-bold mb-2">Descriptografar arquivo</h2>
+                <p class="text-secondary mb-4">
+                    Envie um cofre <code>.krypt</code> e informe a senha para validar a integridade criptográfica de cada bloco de 64 KB e recuperar o arquivo original exato.
+                </p>
+
+                <!-- Diagrama de Verificação e Restauração -->
+                <div class="pipeline-diagram-box mb-4 mt-auto">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 460 66" width="100%" height="66" aria-hidden="true">
+                        <line x1="88" y1="33" x2="365" y2="33" stroke="#262b36" stroke-width="2" />
+                        <line x1="88" y1="33" x2="365" y2="33" stroke="#f59e0b" stroke-width="2.5" class="pulse-lane-line" />
+
+                        <rect x="6" y="13" width="88" height="40" rx="6" fill="#14181f" stroke="#f59e0b" stroke-opacity="0.7" />
+                        <text x="50" y="37" fill="#fbbf24" font-family="monospace" font-weight="bold" font-size="11" text-anchor="middle">.krypt</text>
+
+                        <rect x="148" y="10" width="164" height="46" rx="6" fill="#19150d" stroke="#f59e0b" stroke-opacity="0.55" />
+                        <text x="230" y="30" fill="#fbbf24" font-family="monospace" font-weight="bold" font-size="11" text-anchor="middle">Validação Tag GCM</text>
+                        <text x="230" y="45" fill="#9ca3af" font-family="monospace" font-size="9.5" text-anchor="middle">Cabeçalho AAD + 128-bit</text>
+
+                        <rect x="364" y="13" width="90" height="40" rx="6" fill="#14181f" stroke="#2e3440" />
+                        <text x="409" y="37" fill="#e5e7eb" font-family="monospace" font-size="11" text-anchor="middle">Original</text>
+                    </svg>
+                </div>
+
+                <div>
+                    <a asp-controller="Decryption" asp-action="Index" class="btn-krypton-secondary w-100 stretched-link">
+                        <span>Abrir console de descriptografia</span>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Screen 3: Registro de Operações da Aba Atual -->
+<section class="activity-vault-panel" aria-label="Histórico da sessão">
+    <div class="activity-vault-header d-flex flex-wrap justify-content-between align-items-center gap-3 p-4">
+        <div class="d-flex align-items-center gap-3">
+            <div class="activity-header-icon" aria-hidden="true">
+                <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                    <polyline points="22 12 18 12 15 21 9 3 6 12 2 12" />
+                </svg>
+            </div>
+            <div>
+                <div class="d-flex align-items-center gap-2">
+                    <h2 class="h6 fw-bold mb-0">Operações realizadas nesta aba</h2>
+                    <span id="sessionHistoryCountBadge" class="badge rounded activity-count-badge font-monospace">0 registros</span>
+                </div>
+                <p class="small text-body-secondary mb-0">
+                    Mantido apenas no <code>sessionStorage</code> local do seu navegador e descartado ao fechar a guia.
+                </p>
+            </div>
+        </div>
+
+        <button type="button" id="clearSessionHistoryBtn" class="btn btn-sm btn-outline-danger touch-target-btn px-3 d-none">
+            <span>Limpar registros</span>
+        </button>
+    </div>
+
+    <div class="activity-vault-body">
+        <div class="table-responsive">
+            <table class="table krypton-activity-table align-middle mb-0" id="sessionHistoryTable">
+                <thead id="sessionHistoryThead">
+                    <tr>
+                        <th class="ps-4">Operação</th>
+                        <th>Arquivo processado</th>
+                        <th>Parâmetros</th>
+                        <th>Estado</th>
+                        <th>Horário</th>
+                        <th class="pe-4 text-end">Remover</th>
+                    </tr>
+                </thead>
+                <tbody id="sessionHistoryBody"></tbody>
+            </table>
+        </div>
+    </div>
+</section>

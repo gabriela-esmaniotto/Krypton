@@ -1,0 +1,36 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 128 128" width="128" height="128">
+  <defs>
+    <linearGradient id="krCarbon" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#181b20" />
+      <stop offset="100%" stop-color="#0a0b0d" />
+    </linearGradient>
+    <linearGradient id="krEmerald" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#34d399" />
+      <stop offset="100%" stop-color="#059669" />
+    </linearGradient>
+  </defs>
+
+  <!-- Machined Carbon Housing -->
+  <rect x="6" y="6" width="116" height="116" rx="26" fill="url(#krCarbon)" stroke="#2e3440" stroke-width="3" />
+  <rect x="12" y="12" width="104" height="104" rx="20" fill="none" stroke="#ffffff" stroke-opacity="0.06" stroke-width="1.5" />
+
+  <!-- Precision Isometric Vault Frame -->
+  <polygon points="64,20 102,42 102,86 64,108 26,86 26,42"
+           fill="#111317" stroke="#e5e7eb" stroke-width="3" stroke-linejoin="round" />
+
+  <!-- Emerald Signal Facet -->
+  <polygon points="64,20 102,42 64,64 26,42"
+           fill="url(#krEmerald)" fill-opacity="0.22" />
+  <polygon points="64,64 102,42 102,86 64,108"
+           fill="url(#krEmerald)" fill-opacity="0.10" />
+
+  <!-- Structural Crosshairs -->
+  <line x1="64" y1="20" x2="64" y2="42" stroke="#10b981" stroke-width="2.5" />
+  <line x1="26" y1="42" x2="45" y2="53" stroke="#9ca3af" stroke-width="2" stroke-opacity="0.5" />
+  <line x1="102" y1="42" x2="83" y2="53" stroke="#9ca3af" stroke-width="2" stroke-opacity="0.5" />
+
+  <!-- Inner Core Chamber -->
+  <rect x="46" y="46" width="36" height="36" rx="8" fill="#0a0b0d" stroke="#10b981" stroke-width="2.8" />
+  <circle cx="64" cy="60" r="5.5" fill="#10b981" />
+  <path d="M61 64 L59.5 74 L68.5 74 L67 64 Z" fill="#f3f4f6" />
+</svg>

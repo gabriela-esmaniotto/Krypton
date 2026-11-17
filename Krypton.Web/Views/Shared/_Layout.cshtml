@@ -1,0 +1,110 @@
+@{
+    var currentController = ViewContext.RouteData.Values["controller"]?.ToString() ?? "Home";
+}
+<!DOCTYPE html>
+<html lang="pt-BR" data-bs-theme="dark" data-type="software" id="kryptonHtmlRoot">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="page-type" content="software" />
+    <meta name="site-kind" content="software" />
+    <meta name="description" content="Criptografia e descriptografia autenticada de arquivos em AES-256-GCM e PBKDF2-HMAC-SHA512 direto no navegador." />
+    <title>@ViewData["Title"] — Krypton</title>
+    <link rel="icon" type="image/svg+xml" href="~/favicon.svg" asp-append-version="true" />
+    <link rel="alternate icon" type="image/x-icon" href="~/favicon.ico" asp-append-version="true" />
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+    <script>
+        (function () {
+            const savedTheme = localStorage.getItem('krypton-theme') || 'dark';
+            document.documentElement.setAttribute('data-bs-theme', savedTheme);
+        })();
+    </script>
+</head>
+<body class="d-flex flex-column min-vh-100">
+    <a class="skip-link" href="#mainContent">Pular para o conteúdo principal</a>
+
+    <header class="krypton-navbar sticky-top">
+        <nav class="navbar navbar-expand-lg py-2" aria-label="Navegação principal">
+            <div class="container">
+                <a class="navbar-brand d-flex align-items-center gap-2 fw-bold" asp-controller="Home" asp-action="Index">
+                    <img src="~/images/krypton-logo.svg" alt="Logo Krypton" width="34" height="34" class="krypton-brand-mark" asp-append-version="true" />
+                    <span class="fs-5">Krypton</span>
+                </a>
+
+                <button class="navbar-toggler touch-target-btn" type="button" data-bs-toggle="collapse" data-bs-target="#kryptonMainNav"
+                        aria-controls="kryptonMainNav" aria-expanded="false" aria-label="Abrir menu de navegação">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+
+                <div class="collapse navbar-collapse" id="kryptonMainNav">
+                    <ul class="navbar-nav me-auto mb-2 mb-lg-0 ms-lg-3 gap-1">
+                        <li class="nav-item">
+                            <a class="nav-link nav-pill-link @(currentController == "Home" ? "active-nav" : "")"
+                               asp-controller="Home" asp-action="Index">
+                                Início
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link nav-pill-link gap-2 @(currentController == "Encryption" ? "active-nav" : "")"
+                               asp-controller="Encryption" asp-action="Index">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" aria-hidden="true">
+                                    <rect x="4" y="11" width="16" height="10" rx="2" />
+                                    <path d="M8 11V7a4 4 0 0 1 8 0v4" />
+                                </svg>
+                                <span>Criptografar arquivos</span>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link nav-pill-link gap-2 @(currentController == "Decryption" ? "active-nav" : "")"
+                               asp-controller="Decryption" asp-action="Index">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" aria-hidden="true">
+                                    <rect x="4" y="11" width="16" height="10" rx="2" />
+                                    <path d="M8 11V7a4 4 0 0 1 7.4-2" />
+                                </svg>
+                                <span>Descriptografar arquivo</span>
+                            </a>
+                        </li>
+                    </ul>
+
+                    <div class="d-flex align-items-center gap-2">
+                        <div class="d-none d-xl-inline-flex align-items-center gap-2 px-3 py-1 rounded border border-secondary border-opacity-25 small text-body-secondary font-monospace">
+                            <span class="led-indicator" aria-hidden="true"></span>
+                            <span>AES-256-GCM • 0 bytes retidos</span>
+                        </div>
+
+                        <button type="button" id="themeToggleBtn" class="btn btn-sm btn-outline-secondary touch-target-btn px-3 gap-2"
+                                aria-label="Alternar entre tema escuro e claro">
+                            <span id="themeToggleIcon" class="d-inline-flex align-items-center" aria-hidden="true"></span>
+                            <span id="themeToggleLabel" class="small fw-medium">Escuro</span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <main id="mainContent" role="main" class="flex-grow-1 py-4">
+        <div class="container">
+            @RenderBody()
+        </div>
+    </main>
+
+    <footer class="border-top py-4 mt-auto">
+        <div class="container d-flex flex-wrap justify-content-between align-items-center small text-body-secondary gap-2">
+            <div class="d-flex align-items-center gap-2">
+                <img src="~/images/krypton-logo.svg" alt="" width="22" height="22" class="krypton-footer-mark" aria-hidden="true" asp-append-version="true" />
+                <span><strong>Krypton</strong> — Desenvolvido por Gabriela Esmaniotto • 2026</span>
+            </div>
+            <div class="font-monospace">
+                AES-256-GCM / PBKDF2-HMAC-SHA512
+            </div>
+        </div>
+    </footer>
+
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="~/js/site.js" asp-append-version="true"></script>
+    @await RenderSectionAsync("Scripts", required: false)
+</body>
+</html>
